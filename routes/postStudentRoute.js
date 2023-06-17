@@ -15,23 +15,24 @@ const postStudentSchema = Joi.object({
   dateOfBirth: Joi.string().required(),
 });
 
-router.post("/poststudent", async (req, res) => {
+router.post("/addstudent", async (req, res) => {
   try {
     await postStudentSchema.validateAsync(req.body);
     const newStudent = req.body;
 
-    const upsertStudent = await postNewStudent();
+    const accessStudent = await postNewStudent();
 
-    const isStudent = await upsertStudent.findOne({
+    const isStudent = await accessStudent.findOne({
       email: newStudent.email,
     });
+
     if (isStudent) {
       return res.status(409).send({
         message: `Student with email ${newStudent.email} already exists`,
       });
     }
 
-    const postStudentData = await upsertStudent.insertOne(newStudent);
+    const postStudentData = await accessStudent.insertOne(newStudent);
 
     if (!postStudentData.acknowledged) {
       console.log(5);

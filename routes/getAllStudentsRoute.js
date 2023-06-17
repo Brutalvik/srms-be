@@ -4,8 +4,8 @@ const getAllStudents = require("../collections/getStudentCollection");
 
 router.get("/students", async (req, res) => {
   try {
-    const students = await getAllStudents();
-    const studentData = await students.find({}).toArray();
+    const accessStudent = await getAllStudents();
+    const studentData = await accessStudent.find({}).toArray();
     res.status(200).send(studentData);
   } catch (error) {
     res.status(400).send({

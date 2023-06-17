@@ -6,7 +6,7 @@ const MongoClient = new mongodb.MongoClient(process.env.DBURL);
 const mongoConnection = async () => {
   try {
     await MongoClient.connect();
-    console.log("Connected to MongoDB");
+    console.log("Access to DB granted");
     const db = MongoClient.db("srms");
     return db;
   } catch (error) {
