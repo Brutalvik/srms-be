@@ -1,19 +1,7 @@
 const express = require("express");
 const router = express();
 const postNewStudent = require("../collections/getStudentCollection");
-const Joi = require("joi");
-
-const postStudentSchema = Joi.object({
-  firstName: Joi.string().min(3).max(30).required(),
-  lastName: Joi.string().min(3).max(30).required(),
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
-    .required(),
-  dateOfBirth: Joi.string().required(),
-});
+const { postStudentSchema } = require("../schema/validation");
 
 router.post("/addstudent", async (req, res) => {
   try {

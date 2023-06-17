@@ -1,23 +1,15 @@
 const express = require("express");
 const router = express();
 const upsertStudent = require("../collections/getStudentCollection");
-const Joi = require("joi");
 const { ObjectId } = require("mongodb");
-
-const studentSchema = Joi.object({
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
-    .required(),
-});
+const { deleteStudentSchema } = require("../schema/validation");
+const mongoConnection = require("../db/config");
 
 router.delete("/deletestudent", async (req, res) => {
   const { email } = req.body;
   const accessStudent = await upsertStudent();
   try {
-    await studentSchema.validateAsync({
+    await deleteStudentSchema.validateAsync({
       email,
     });
     const isStudent = await accessStudent.findOne({ email: email });

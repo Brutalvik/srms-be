@@ -3,24 +3,13 @@ const router = express();
 const upsertStudent = require("../collections/getStudentCollection");
 const Joi = require("joi");
 const { ObjectId } = require("mongodb");
-
-const studentSchema = Joi.object({
-  firstName: Joi.string().min(3).max(30),
-  lastName: Joi.string().min(3).max(30),
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
-    .required(),
-  dateOfBirth: Joi.string(),
-});
+const { upsertStudentSchema } = require("../schema/validation");
 
 router.put("/updatestudent", async (req, res) => {
   const { firstName, lastName, email, dateOfBirth } = req.body;
   const accessStudent = await upsertStudent();
   try {
-    await studentSchema.validateAsync({
+    await upsertStudentSchema.validateAsync({
       firstName,
       lastName,
       email,
