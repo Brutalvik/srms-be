@@ -3,7 +3,6 @@ const router = express();
 const upsertStudent = require("../collections/getStudentCollection");
 const { ObjectId } = require("mongodb");
 const { deleteStudentSchema } = require("../schema/validation");
-const mongoConnection = require("../db/config");
 
 router.delete("/deletestudent", async (req, res) => {
   const { email } = req.body;

@@ -19,7 +19,7 @@ router.put("/updatestudent", async (req, res) => {
     if (isStudent === null) {
       return res
         .status(404)
-        .send({ message: `No student with email ${studentEmail}` });
+        .send({ message: `No student with email ${email}` });
     }
     const { acknowledged } = await accessStudent.updateOne(
       { _id: new ObjectId(isStudent._id) },
