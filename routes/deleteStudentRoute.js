@@ -13,7 +13,7 @@ const studentSchema = Joi.object({
     .required(),
 });
 
-router.put("/deletestudent", async (req, res) => {
+router.delete("/deletestudent", async (req, res) => {
   const { email } = req.body;
   const accessStudent = await upsertStudent();
   try {
@@ -24,19 +24,21 @@ router.put("/deletestudent", async (req, res) => {
     if (isStudent === null) {
       return res
         .status(404)
-        .send({ message: `No student with email ${studentEmail}` });
+        .send({ message: `No student with email ${email}` });
     }
-    const { acknowledged } = await accessStudent.findOneAndDelete({
+    const { acknowledged } = await accessStudent.deleteOne({
       _id: new ObjectId(isStudent._id),
     });
 
     if (!acknowledged) {
-      return res.status(500).send({ message: "Delete failed !" });
+      return res.status(500).send({ message: "Cannot delete student !" });
     }
 
     res.status(200).send({ message: "Student deleted !" });
   } catch (error) {
-    res.send(error);
+    const err = error.details[0].message;
+    const formattedError = err.replace(/\\/g, "").replace(/"/g, "");
+    res.status(400).send({ message: formattedError });
   }
 });
 
