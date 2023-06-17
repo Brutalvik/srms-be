@@ -16,21 +16,8 @@ const postStudentSchema = Joi.object({
 });
 
 router.post("/poststudent", async (req, res) => {
-  // if (!req.body.firstName || req.body.firstName === "") {
-  //   return res.status(400).send({ message: "First name required !" });
-  // }
-  // if (!req.body.lastName || req.body.lastName === "") {
-  //   return res.status(400).send({ message: "Last name required !" });
-  // }
-  // if (!req.body.email || req.body.email === "") {
-  //   return res.status(400).send({ message: "Email required !" });
-  // }
-  // if (!req.body.dateOfBirth || req.body.dateOfBirth === "") {
-  //   return res.status(400).send({ message: "Date of birth required !" });
-  // }
-
   try {
-    const bodyValidation = await postStudentSchema.validateAsync(req.body);
+    await postStudentSchema.validateAsync(req.body);
     const newStudent = req.body;
 
     const upsertStudent = await postNewStudent();
