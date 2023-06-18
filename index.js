@@ -6,6 +6,7 @@ const upsertStudent = require("./routes/upsertStudentRoute");
 const deleteStudent = require("./routes/deleteStudentRoute");
 const addCourse = require("./routes/postNewCourseRoute");
 const courses = require("./routes/getAllCoursesRoute");
+const upsertCourse = require("./routes/upsertCourseRoute");
 
 const PORT = 5000 || process.env.PORT;
 
@@ -19,5 +20,6 @@ app.use("/api", upsertStudent);
 app.use("/api", deleteStudent);
 app.use("/api", courses);
 app.use("/api", addCourse);
+app.use("/api", upsertCourse);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
