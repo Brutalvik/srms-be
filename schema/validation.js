@@ -33,8 +33,13 @@ const upsertStudentSchema = Joi.object({
   dateOfBirth: Joi.string(),
 });
 
+const postCourseSchema = Joi.object({
+  courseName: Joi.string().min(3).max(30).required(),
+});
+
 module.exports = {
   postStudentSchema,
   upsertStudentSchema,
   deleteStudentSchema,
+  postCourseSchema,
 };
