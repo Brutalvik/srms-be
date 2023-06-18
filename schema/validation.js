@@ -13,12 +13,7 @@ const postStudentSchema = Joi.object({
 });
 
 const deleteStudentSchema = Joi.object({
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
-    .required(),
+  id: Joi.string().required(),
 });
 
 const upsertStudentSchema = Joi.object({
