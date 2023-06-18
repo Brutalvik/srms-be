@@ -12,7 +12,7 @@ router.delete("/deletestudent", async (req, res) => {
       email,
     });
     const isStudent = await accessStudent.findOne({ email: email });
-    if (isStudent === null) {
+    if (!isStudent) {
       return res
         .status(404)
         .send({ message: `No student with email ${email}` });

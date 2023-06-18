@@ -6,7 +6,7 @@ const { ObjectId } = require("mongodb");
 const { upsertStudentSchema } = require("../schema/validation");
 
 router.put("/updatestudent", async (req, res) => {
-  const { firstName, lastName, email, dateOfBirth } = req.body;
+  const { firstName, lastName, email, dateOfBirth, scores } = req.body;
   const accessStudent = await upsertStudent();
   try {
     await upsertStudentSchema.validateAsync({
@@ -14,9 +14,10 @@ router.put("/updatestudent", async (req, res) => {
       lastName,
       email,
       dateOfBirth,
+      scores,
     });
     const isStudent = await accessStudent.findOne({ email: email });
-    if (isStudent === null) {
+    if (!isStudent) {
       return res
         .status(404)
         .send({ message: `No student with email ${email}` });
@@ -28,6 +29,7 @@ router.put("/updatestudent", async (req, res) => {
           firstName: firstName ?? isStudent.firstName,
           lastName: lastName ?? isStudent.lastName,
           dateOfBirth: dateOfBirth ?? isStudent.dateOfBirth,
+          scores: scores ?? isStudent.scores,
         },
       }
     );
