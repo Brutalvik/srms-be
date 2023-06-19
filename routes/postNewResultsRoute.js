@@ -17,7 +17,7 @@ router.post("/addresult", async (req, res) => {
     }
 
     res.status(200).send({
-      message: `${results.studentName} result added successfully`,
+      message: `${results.studentName}'s result added successfully`,
     });
   } catch (error) {
     const err = error.details[0].message;
