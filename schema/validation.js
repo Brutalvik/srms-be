@@ -36,7 +36,9 @@ const deleteCourseSchema = Joi.object({ id: Joi.string().required() });
 
 const postResultsSchema = Joi.object({
   studentName: Joi.string().required(),
+  studentId: Joi.string(),
   courseName: Joi.string().required(),
+  courseId: Joi.string(),
   grade: Joi.string().required(),
 });
 

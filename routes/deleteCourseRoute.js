@@ -19,6 +19,7 @@ router.delete("/deletecourse", async (req, res) => {
     if (!courseExists) {
       return res.status(404).send({ message: `Course does not exist !` });
     }
+
     const { acknowledged } = await accessCourses.deleteOne({
       _id: new ObjectId(id),
     });
