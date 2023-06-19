@@ -32,9 +32,18 @@ const postCourseSchema = Joi.object({
   courseName: Joi.string().min(3).max(30).required(),
 });
 
+const deleteCourseSchema = Joi.object({ id: Joi.string().required() });
+
+const postResultsSchema = Joi.object({
+  studentName: Joi.string().required(),
+  courseName: Joi.string().required(),
+  grade: Joi.string().required(),
+});
+
 module.exports = {
   postStudentSchema,
   upsertStudentSchema,
   deleteStudentSchema,
   postCourseSchema,
+  deleteCourseSchema,
 };
